@@ -25,61 +25,109 @@ var born;
 
 var diff;
 
+var interval;
+
 var dateValue = document.querySelector('.date');
-var date = now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();
+var date = now.getFullYear()+'-'+now.getMonth()+1+'-'+now.getDate().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:true});
 dateValue.value = date;
+
+console.log(dateValue.value);
+console.log(parseInt(dateValue.value));
+
+var num = dateValue.value.match(/\d+/g);
+
+console.log(num[1]);
+
+var gune = new Date(num[0], num[1]-1, num[2]);
+console.log(gune);
 
 
 
 function secondDate() {
     console.log(dateValue.value);
-    born = new Date(dateValue.value);
-    now  = new Date();
-    diff = Math.abs(now - born) / (1000);
 
-    dateNow.innerText = parseInt(diff) + ' seconds old';
-    dateNow.style.visibility = "visible";
+    num = dateValue.value.match(/\d+/g);
+    
+    born = new Date(num[0], num[1]-1, num[2]);
+    
 
-    setInterval(secondDate, 1000);
+    interval = setInterval(function() {
+        now  = new Date();
+        diff = Math.abs(now - born) / (1000);
+
+        dateNow.innerText = parseInt(diff) + ' seconds old';
+        dateNow.style.visibility = "visible";
+    }, 1000);
+}
+
+function second() {
+    clearInterval(interval);
+    secondDate();
 }
 
 function minuteDate() {
-
     console.log(dateValue.value);
-    born = new Date(dateValue.value);
-    now  = new Date();
-    diff = Math.abs(now - born) / (1000 * 60);
+    num = dateValue.value.match(/\d+/g);
+    
+    born = new Date(num[0], num[1]-1, num[2]);
+    
 
-    dateNow.innerText = parseInt(diff) + ' minutes old';
-    dateNow.style.visibility = "visible";
+    interval = setInterval(function() {
+        now  = new Date();
+        diff = Math.abs(now - born) / (1000 * 60);
 
-    setInterval(minuteDate, 1000);
+        dateNow.innerText = parseInt(diff) + ' minutes old';
+        dateNow.style.visibility = "visible";
+    }, 1000);
+}
+
+function minute() {
+    clearInterval(interval);
+    minuteDate();
 }
 
 function hourDate() {
-
     console.log(dateValue.value);
-    born = new Date(dateValue.value);
-    now  = new Date();
-    diff = Math.abs(now - born) / (1000 * 60 * 60);
+    num = dateValue.value.match(/\d+/g);
+    
+    born = new Date(num[0], num[1]-1, num[2]);
+    
 
-    dateNow.innerText = parseInt(diff) + ' hours old';
-    dateNow.style.visibility = "visible";
+    interval = setInterval(function() {
+        now  = new Date();
+        diff = Math.abs(now - born) / (1000 * 60 * 60);
+        console.log(now);
+        console.log(born);
 
-    setInterval(hourDate, 1000);
+        dateNow.innerText = parseInt(diff) + ' hours old';
+        dateNow.style.visibility = "visible";
+    }, 1000);
+}
+
+function hour() {
+    clearInterval(interval);
+    hourDate();
 }
 
 function dayDate() {
-
     console.log(dateValue.value);
-    born = new Date(dateValue.value);
-    now  = new Date();
-    diff = Math.abs(now - born) / (1000 * 60 * 60 * 24);
+    num = dateValue.value.match(/\d+/g);
+    
+    born = new Date(num[0], num[1]-1, num[2]);
+    
 
-    dateNow.innerText = parseInt(diff) + ' days old';
-    dateNow.style.visibility = "visible";
+    interval = setInterval(function() {
+        now  = new Date();
+        diff = Math.abs(now - born) / (1000 * 60 * 60 * 24);
 
-    setInterval(dayDate, 1000);
+        dateNow.innerText = parseInt(diff) + ' days old';
+        dateNow.style.visibility = "visible";
+    }, 1000);
+}
+
+function day() {
+    clearInterval(interval);
+    dayDate();
 }
 
 
